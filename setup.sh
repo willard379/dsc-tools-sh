@@ -24,7 +24,8 @@ ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 check_rc "タイムゾーンの設定に失敗しました。"
 
 # chkconfig の設定
-if [ -e dataspider ]; then
+chmod +x dataspider
+if [ `chkconfig --list dataspider` ]; then
   cp dataspider /etc/rc.d/init.d
   chkconfig --add dataspider
   check_rc "起動スクリプトの設定に失敗しました。"
