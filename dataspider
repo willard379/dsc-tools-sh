@@ -21,14 +21,17 @@ start() {
   echo "Starting $progname: "
   su -l $user -c $startcmd || su -l $user -c "touch $errorfile" &
   while :; do
+    if [ ! -f $serverlog ]; then
+      continue
+    fi
     if tail $serverlog | grep --silent "正常に起動しました。"; then
-        touch $lockfile
-        RETVAL=0
-        break
+      touch $lockfile
+      RETVAL=0
+      break
     elif [ -e $errorfile ]; then
-        rm $errorfile
-        RETVAL=1
-        break
+      rm $errorfile
+      RETVAL=1
+      break
     fi
   done
   echo ""
