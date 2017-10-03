@@ -25,8 +25,8 @@ check_rc "タイムゾーンの設定に失敗しました。"
 
 # chkconfig の設定
 chmod +x dataspider
-if [ `chkconfig --list dataspider` ]; then
-  cp dataspider /etc/rc.d/init.d
+if [ ! `chkconfig --list dataspider > /dev/null 2>&1` ]; then
+  cp dataspider /etc/rc.d/init.d/dataspider
   chkconfig --add dataspider
   check_rc "起動スクリプトの設定に失敗しました。"
 fi
