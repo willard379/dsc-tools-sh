@@ -14,7 +14,8 @@ check_rc() {
 chmod +x ./*.sh
 
 # ロケールの設定
-if [ `grep -q "LANG=en_US" /etc/sysconfig/i18n` ]; then
+grep -q "LANG=en_US" /etc/sysconfig/i18n
+if [ "$?" -eq 0 ]; then
   sed -i -e 's/en_US/ja_JP/' /etc/sysconfig/i18n
   check_rc "ロケールの設定に失敗しました。"
 fi
